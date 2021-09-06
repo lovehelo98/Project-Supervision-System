@@ -1,0 +1,58 @@
+{% extends 'base/nav1.html' %}
+{% block body %}
+<div class="container">
+  <div>
+    <a class="nav-link text-reset text-decoration-none" href="{% url 'criteria' c.title.id %}" style="font-size: x-large !important; padding: 0 !important ;">
+      {{g}} : {{c.criteria}}
+    </a>
+    </div>
+  <div class="row" style="border-bottom: 1px solid#74c043;">
+    <div class="col">
+    <p class="h1">Marking Points</p>
+    </div>
+    <div class="col" style="padding-right: 0 !important;">
+            <button type="button" class="btn btn-outline-success  float-end" data-bs-toggle="modal" data-bs-target="#addModal">Add Points</button>
+    </div>
+  </div> 
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Description</h5>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'adddescp' c.id%}">
+          {% csrf_token %}
+          <div class="form-group row">
+            <div class="col">
+               {{form.media}}
+              {{form.descp}}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-success" type="submit">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  {% for d in descriptions %}
+<div class="row mt-3">
+<div class="col-10" style="border-bottom: 1px solid grey;">
+  {{d.descp|safe}}
+</div>
+<div class="col"  style="border-bottom: 1px solid grey;">
+  <a href="{% url 'deletedescp' d.id %}" class="delete mt-2 text-reset text-decoration-none float-end" title="Delete" data-toggle="tooltip"><i
+    class="material-icons">&#xE872;</i></a>
+    <a href="{% url 'editdescp' d.id c.id %}" class="edit mt-2 text-reset text-decoration-none float-end" title="Edit"><i
+        class="material-icons">&#xE254;</i></a>
+    
+              
+</div>
+</div>
+{% endfor %}
+</div>
+{% endblock body%}

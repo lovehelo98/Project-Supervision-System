@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Proposal Criteria</title>
+</head>
+<body>
+    <p style="font-family:Calibri; font-size: 16pt;"><b>Appendix - SUPERVISORS' Project Proposal Report Marking/Feedback Sheet (0%).</b></p>
+    <p style="font-family:Times New Roman; font-size: 16pt;"><b>Module Code: 6CS020 Professionalism and Project (40 Credit) Marking and Feedback Sheet - PASS/FAIL</b></p>
+    <p style="font-family: Times New Roman; font-size: 14pt;"><b>Attempt:</b></p>
+    <table style="border-spacing: 0px !important;">
+        <tbody>
+            <tr>
+                <td style=" padding-top:2px;  font-family:Times New Roman;font-size: 12pt;border: 1px solid black;background: rgb(242, 242, 242);">Student No: {{a.wlvid}}</td>
+                <td style=" padding-top:2px; font-family:Times New Roman;font-size: 12pt;border-top: 1px solid black;border-bottom: 1px solid black;background: rgb(242, 242, 242);">Student Name: {{a.fullname}}</td>
+                <td style="text-align: center; padding-top:3px; font-family:Times New Roman;font-size: 16pt;border: 1px solid black; background: rgb(242, 242, 242);"><b>Pass/Fail</b></td>
+            </tr>
+            <tr>
+                <td style=" padding-top:3px; font-family:Times New Roman;font-size: 12pt;border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black; background: rgb(242, 242, 242);">Supervisor: {{a.supervisor}}</td>
+                <td style=" padding-top:3px; font-family:Times New Roman;font-size: 12pt;border-bottom: 1px solid black; background: rgb(242, 242, 242);">Date: {% now "jS F Y " %}</td>
+                <td style=" padding-top:3px; border-left: 1px solid black;"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="border-spacing: 0px !important; margin-top: 20px;">
+        <tbody >
+            <tr>
+            <td style="padding:3px; vertical-align: center; font-family: Calibri; font-size: 12pt; background: rgb(217,217,217); border-left: 1px solid black;border-right: 1px solid black;border-top: 1px solid black; text-align:center;"><b>Assessment Criteria</b></td>
+            <td style="padding:3px; background: rgb(217, 217, 217);border-top: 1px solid black;"></td>
+            <td style="padding:3px; font-family: Calibri; font-size: 12pt; background: rgb(217, 217, 217);border-left: 1px solid black;border-right: 1px solid black;border-top: 1px solid black; text-align: center;"><b>Comments</b></td>
+        </tr>
+       
+            {% for d in d %}    
+            <tr>
+                <td style="padding:3px; width:20%;background:rgb(217,217,217);border-left: 1px solid black;border-right: 1px solid black;{% ifchanged d.criteria.id %}border-top: 1px solid black;{%endifchanged %}{% if forloop.last%}border-bottom: 1px solid black;{% endif %}text-align:center;"><b>{% ifchanged d.criteria.id %}{{d.criteria.criteria}}{%endifchanged %}</b></td>
+                <td style="padding:3px; text-align:justify;width:50%;background:rgb(217,217,217);border-top: 1px solid black;{% if forloop.last%}border-bottom: 1px solid black;{% endif %} ">{{d.descp|safe}}</td>
+                <td style="padding:3px; border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;{% if forloop.last%}border-bottom: 1px solid black;{% endif %}">{% for cmt in cmt %}{% if d.id == cmt.description.id %}{{cmt.comment}}{% endif %}{% endfor %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Marking Grid</title>
+</head>
+<body>
+    <p style="margin-block-end: 0em !important;"><span style="font-family:Cambria; font-size: 14pt; color:#365F91 ; "><u><b>Component 2: </u>Project (including Artefact) and Project Management Marking and Feedback Sheet.</b></span><span style="font-family:Calibri; font-size: 9pt;">(Weight: 75%)</span></p>
+    <p style="margin-block-start: 0em !important;"><span style="font-family: calibri;font-size: 9pt; "><u>Note. </u>Marks are a matter of academic judgement based on the </span><span style="font-family:Calibri; font-size: 9pt; color: blue;"><u>University Performance Descriptors</u>.</span></p>
+    <table style="border-spacing: 0px !important;">
+        <tbody>
+            <tr>
+                <td style="font-family:Times New Roman;font-size: 12pt;border: 1px solid black; background: rgb(242, 242, 242);"><b>Student No: {{a.wlvid}}</b></td>
+                <td style="font-family:Times New Roman;font-size: 12pt;border-top: 1px solid black;border-bottom: 1px solid black; background: rgb(242, 242, 242);"><b>Student Name: {{a.fullname}}</b></td>
+                <td style="font-family:Times New Roman;font-size: 12pt;border-top: 1px solid black;border-bottom: 1px solid black; border-left: 1px solid black;  background: rgb(242, 242, 242);"><b>Supervisor: {{a.supervisor}}</b></td>
+                <td style="padding-top: 2px; font-family:Times New Roman;font-size: 12pt;border-top: 1px solid black;border-right: 1px solid black; border-left: 1px solid black; background: rgb(242, 242, 242);"><p style="margin-block-end: 0em !important;"><b><span>Overal Project Mark</span><span><u> as a Percentage.</u><b></span></p>
+                    <p style="color:red; text-align: right; margin-block-start: 0em !important; margin-block-end: 0em !important;">(<u><i>Copied</i></u> from bottom of the marking sheet.</p>
+                    <p style="color: red; text-align: right;margin-block-start: 0em !important;">40% required to pass the module)</p><p style="text-align: right;" ><b><mark>{% for m in mgrid %}{{m.marks}}{% endfor%}%</mark></b></p></td>
+            </tr>
+            <tr>
+                <td style="font-family:Times New Roman;font-size: 12pt;border-right: 1px solid black;border-bottom: 1px solid black; border-left: 1px solid black;  background: rgb(242, 242, 242);"><b>Date: {% now "jS F Y " %}</b></td>
+                <td style="padding-top:2px; font-family:Times New Roman;font-size: 12pt;border-bottom: 1px solid black; background: rgb(242, 242, 242);"><b>Project Title: {{a.project}}</b></td>
+                <td style="font-family:Times New Roman;font-size: 12pt;border-bottom: 1px solid black; border-left: 1px solid black;  background: rgb(242, 242, 242);"><b>Reader:</b></td>
+                <td style="font-family:Times New Roman;font-size: 12pt;border-right: 1px solid black;border-bottom: 1px solid black; border-left: 1px solid black;  background: rgb(242, 242, 242);"></td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="border-spacing: 0px !important; margin-top: 20px;">
+        <tbody>
+            <tr>
+                <td style="padding-top:2px; border: 1px solid black; background: rgb(217,217,217);"><b>Sections</b></td>
+                <td style="padding-top:2px; border-top: 1px solid black; border-right:1px solid black; border-bottom:1px solid black; border-bottom: 1px solid black; background: rgb(217,217,217);text-align: center;"><b>Marks</b></td>
+                <td style="padding-top:2px; border-top: 1px solid black; border-right:1px solid black; border-bottom:1px solid black; border-bottom: 1px solid black; background: rgb(217,217,217);text-align: center;"><b>Criteria</b></td>
+                <td style="padding-top:2px; border-top: 1px solid black; border-right:1px solid black; border-bottom:1px solid black; border-bottom: 1px solid black; background: rgb(217,217,217);text-align: center;"><b>Feedback</b></td>
+            </tr>
+            {% for d in d %} 
+            <tr>
+                <td style="padding:3px;  width:10%;background: rgb(217,217,217); border-left: 1px solid black;border-right: 1px solid black;{% ifchanged d.criteria.id %}border-top: 1px solid black;{%endifchanged %}{% if forloop.last%}border-bottom: 1px  solid black;{% endif %}"><p><b>{% ifchanged d.criteria.id %}{{d.criteria.criteria}}{%endifchanged %}</b></p><p>{% if forloop.last %}{{d.descp|safe}}{% endif %}</p></td>
+                <td style="padding:3px; width:5%;  {% ifchanged d.criteria.id %}border-top: 1px solid black;{%endifchanged %}border-right: 1px solid black;{% if forloop.last%}border-bottom: 1px solid black; background-color:white !important;border-right: 1px solid white;{% endif %}">{% if forloop.first %}N/A{% else %}{% ifchanged d.criteria.id %}{% for m in mcrt %}{% if m.criteria.id == d.criteria.id %}<mark>{{m.marks}}</mark>{% endif %}{% endfor%}{% endifchanged%}{% endif %}</td>
+                <td style="padding:3px; width:50%;  border-top:1px solid black;border-right: 1px solid black;{% if forloop.last%}background-color:white !important; border-right: 1px solid white; border-bottom:1px solid black;{% endif %}">{% if not forloop.last %}{{d.descp|safe}}{% endif %}{% if forloop.last %} {% for cmt in cmt %}{% if d.id == cmt.description.id %}{{cmt.comment}}{% endif %}{% endfor %}{% endif %}</td>
+                <td style=" border-top: 1px solid black; border-right: 1px solid black;background: white;{% if forloop.last%}border-bottom:1px solid black;{% endif %}">{% if not forloop.last %} {% for cmt in cmt %}{% if d.id == cmt.description.id %}{{cmt.comment}}{% endif %}{% endfor %}{% endif %}</td>
+            </tr>     
+            {% endfor %}   
+        </tbody>
+    </table>
+</body>
+</html>

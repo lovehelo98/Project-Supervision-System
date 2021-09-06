@@ -1,0 +1,153 @@
+{%  extends 'base/nav1.html' %}
+{% load static %}
+{% block head %}
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'login/images/icons/favicon.ico'%}" />
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css'%}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animate/animate.css'%}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/css-hamburgers/hamburgers.min.css'%}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animsition/css/animsition.min.css'%}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/select2/select2.min.css'%}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/daterangepicker/daterangepicker.css'%}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css'%}">
+	<!--===============================================================================================-->
+    <!-- <style>
+        .newfield input , select {
+            height: 40px  !important;
+        }
+    
+    </style> -->
+{% endblock head %}
+
+{% block body %}
+{{form.errors}}
+<div class="newfield wrap-login100 p-l-85 p-r-85  p-b-55 mx-auto">
+    <form class="login100-form validate-form flex-sb flex-w" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <span class="login100-form-title p-b-32" style="color: #74c043;">
+            Account Creation
+        </span>
+        <span class="txt1 p-b-11">
+            FullName
+        </span>
+        <div class="wrap-input100 m-b-36">
+            <input type="text" name="fullname" maxlength="30" class="input100" required="" id="id_fullname">
+            <span class="focus-input100"></span>
+        </div>
+        <span class="txt1 p-b-11">
+            Email
+        </span>
+        <div class="wrap-input100 m-b-36">
+            <input type="email" name="email" autofocus="" class="input100" required="" id="id_email">
+            <span class="focus-input100"></span>
+        </div>
+        <span class="txt1 p-b-11">
+            Phone
+        </span>
+        <div class="wrap-input100 m-b-36">
+            <input name="phone_number" maxlength="10" class="input100" id="id_phone_number" style="font-family: none !important; font-weight: bold;">
+            <span class="focus-input100"></span>
+        </div>
+        <span class="txt1 p-b-11">
+            Type
+        </span>
+        <div class="wrap-input100 m-b-36">
+            <select name="user_type" class="input100" id="id_user_type" onchange="changeStatus()" required>
+                <option value="" selected disabled hidden>Choose here</option>
+                <option value="Student">Student</option>
+                <option value="Teacher">Supervisor</option>
+            </select>
+            <!-- <span class="focus-input100"></span> -->
+        </div>
+        <span class="txt1 p-b-11" id="id_textsp">
+            Supervisor
+        </span>
+        <div class="wrap-input100 m-b-36" id="id_divsp">
+            <select name="supervisor" class="input100" id="id_supervisor">
+                <option value=''>Select Supervisor</option>
+                {% for i in teachers %}
+                <option value="{{i.fullname}}">{{i.fullname}}</option>
+                {% endfor %}
+            </select>
+            <!-- <span class="focus-input100"></span> -->
+        </div>
+        <span class="txt1 p-b-11" id="id_textwlv">
+            WLV_ID
+        </span>
+        <div class="wrap-input100 m-b-36" id="id_divwlv">
+            <input type="number" name="wlvid" maxlength="8" class="input100" id="id_wlvid"  style="font-family: none !important;">
+            <span class="focus-input100"></span>
+        </div>
+        <span class="txt1 p-b-11" id="id_textproject">
+            Project Title
+        </span>
+        <div class="wrap-input100 m-b-36" id="id_divproject">
+            <input type="text" name="project"  class="input100" id="id_project" >
+            <span class="focus-input100"></span>
+        </div>
+
+        <input type="password" name="password1" autocomplete="new-password" class="input100" required=""
+            id="id_password1" value="herald@1234" hidden>
+        <input type="password" name="password2" autocomplete="new-password" class="input100" required=""
+            id="id_password1" value="herald@1234" hidden>
+        <div class="login100-form-btn mx-auto">
+            <button class="login100-form-btn">
+                Add User
+            </button>
+        </div>
+    </form>
+</div>
+<!--===============================================================================================-->
+<script src="{% static 'login/vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'login/vendor/animsition/js/animsition.min.js'%}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'login/vendor/bootstrap/js/popper.js'%}"></script>
+<script src="{% static 'login/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'login/vendor/select2/select2.min.js'%}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'login/vendor/daterangepicker/moment.min.js'%}"></script>
+<script src="{% static 'login/vendor/daterangepicker/daterangepicker.js'%}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'login/vendor/countdowntime/countdowntime.js'%}"></script>
+<!--===============================================================================================-->
+<script src="{% static 'login/js/main.js'%}"></script>
+
+<script>
+    function changeStatus(){
+        var status = document.getElementById("id_user_type");
+        if (status.value=="Teacher"){
+            document.getElementById("id_textsp").style.display="none";
+            document.getElementById("id_divsp").style.display="none";
+            document.getElementById("id_textwlv").style.display="none";
+            document.getElementById("id_divwlv").style.display="none";
+            document.getElementById("id_supervisor").value='';
+            document.getElementById("id_wlvid").value='';
+            document.getElementById("id_textproject").style.display="none";
+            document.getElementById("id_divproject").style.display="none";
+            document.getElementById("id_project_title").value='';
+        }else{
+            document.getElementById("id_textsp").style.display="block";
+            document.getElementById("id_divsp").style.display="block";
+            document.getElementById("id_textwlv").style.display="block";
+            document.getElementById("id_divwlv").style.display="block";
+            document.getElementById("id_textproject").style.display="block";
+            document.getElementById("id_divproject").style.display="block";
+        }
+        
+    } 
+</script>
+
+{% endblock body %}

@@ -1,0 +1,74 @@
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;border:none;'><strong><u><span style='font-size:19px;font-family:"Cambria",serif;color:#366091;'>Component 1</span></u></strong><strong><span style='font-size:19px;font-family:"Cambria",serif;color:#366091;'>: Professionalism Section Marking and Feedback Sheet</span></strong><strong><span style="font-size:21px;color:black;">&nbsp;</span></strong><strong><span style="font-size:12px;color:black;">(Weight: 25%)</span></strong></p>
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;border:none;'><em><span style="font-size:12px;color:black;">Note.&nbsp;</span></em><span style="font-size:12px;color:black;">Marks are not mechanically calculated but are a matter of academic judgement based on the&nbsp;</span><a href="https://www.wlv.ac.uk/media/departments/office-of-the-vice-chancellor/documents/University-Performance-Descriptors.pdf"><span style="font-size:12px;color:blue;">University Performance Descriptors</span></a><span style="font-size:12px;color:black;">.</span></p>
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;border:none;'><span style="font-size:8px;color:black;">&nbsp;</span></p>
+<table style="width:99%;border-collapse:collapse;border:none;">
+    <tbody>
+        <tr>
+            <td style="width: 114.85pt;border: 1pt solid black;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 27.3pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">Student No: {{a.wlvid}}</span></strong></p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">&nbsp;</span></strong></p>
+            </td>
+            <td style="width: 248.15pt;border-top: 1pt solid black;border-right: 1pt solid black;border-bottom: 1pt solid black;border-image: initial;border-left: none;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 27.3pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;color:black;">Student Name: {{a.fullname}}</span></strong></p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">&nbsp;</span></strong></p>
+            </td>
+            <td style="width: 140pt;border-top: 1pt solid black;border-right: 1pt solid black;border-bottom: 1pt solid black;border-image: initial;border-left: none;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 27.3pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;color:black;">Supervisor:&nbsp; {{a.supervisor}}</span></strong></p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">&nbsp;</span></strong></p>
+            </td>
+            <td rowspan="2" style="width: 255.05pt;border-top: 1pt solid black;border-right: 1pt solid black;border-bottom: 1pt solid black;border-image: initial;border-left: none;background: rgb(217, 217, 217);padding: 0in 5.4pt;height: 27.3pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><strong><span style="font-size:19px;line-height:115%;color:black;">Professionalism Mark <u>as a Percentage</u>.</span></strong><span style='font-size:13px;line-height:115%;font-family:"Arial",sans-serif;color:black;'>&nbsp;</span></p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><em><span style='font-size:13px;line-height:115%;font-family:  "Arial",sans-serif;color:red;'>(40% required to pass the module)</span></em></p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><strong><span style="font-size:24px;line-height:115%;color:black;background:yellow;">{% for m in mgrid %}{{m.marks}}{% endfor%}%</span></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 111.85pt;border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 30.6pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;color:black;">Date: {% now "jS F Y " %}</span></strong></p>
+            </td>
+            <td style="width: 248.15pt;border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 30.6pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;color:black;">Project Title: {{a.project}}</span></strong></p>
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;">&nbsp;</span></strong></p>
+            </td>
+            <td style="width: 120.45pt;border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 30.6pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><strong><span style="font-size:16px;line-height:115%;color:black;">Reader: {{user.fullname}}</span></strong></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:0in;line-height:normal;font-size:15px;font-family:"Calibri",sans-serif;border:none;'><span style='font-size:9px;font-family:"Comic Sans MS";color:black;'>&nbsp;</span></p>
+<table style="width: 99%;border-collapse:collapse;border:none;">
+    <tbody>
+        <tr>
+            <td style="width: 182.6pt;border: 1pt solid black;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:justify;'><strong><span style="font-size:13px;line-height:115%;">Assessment Criteria</span></strong></p>
+            </td>
+            <td style="width: 552.85pt;border-top: 1pt solid black;border-right: 1pt solid black;border-bottom: 1pt solid black;border-image: initial;border-left: none;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><strong><span style="font-size:13px;line-height:115%;color:black;">Feedback</span></strong></p>
+            </td>
+        </tr>
+        {% for d in d %}
+        {% if forloop.last %}
+        <tr>
+            
+            <td style="width: 182.6pt;border-bottom: 1pt solid black;padding: 0in 5.4pt;vertical-align: top;">
+            
+            </td>
+            <td style="width: 552.85pt;border-bottom: 1pt solid black;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:13px;line-height:115%;">&nbsp;</span></p>
+            </td>
+        </tr>
+        {% endif%}
+        <tr>
+            
+            <td style="width: 182.6pt;border-right: 1pt solid black;border-bottom: 1pt solid black;border-left: 1pt solid black;border-image: initial;border-top: none;background: rgb(217, 217, 217);padding: 0in 5.4pt;vertical-align: top;">
+             {{d.descp|safe}}
+            </td>
+            <td style="width: 552.85pt;border-top: none;border-left: none;border-bottom: 1pt solid black;border-right: 1pt solid black;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:13px;line-height:115%;">&nbsp;</span>{% for cmt in cmt %}{% if d.id == cmt.description.id %}<ul><li>{{cmt.comment}}</li></ul>{% endif %}{% endfor %}</p>
+            </td>
+        </tr>
+        {% endfor %}
+       
+    </tbody>
+</table>

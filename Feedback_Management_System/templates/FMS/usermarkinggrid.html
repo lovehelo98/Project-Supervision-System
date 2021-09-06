@@ -1,0 +1,245 @@
+{% extends 'base/nav1.html'%}
+{%block head %}
+<style>
+  .accordion-button:not(.collapsed) {
+    background-color: white !important;
+  }
+</style>
+{% endblock head %}
+{% block body %}
+<h1>Marking Grid : {{i.fullname}}</h1>
+<div class="accordion mt-4" id="accordionExample">
+  {% for g in g %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button id="btn1{{g.id}}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{g.id}}"
+        aria-expanded="true" aria-controls="collapseOne">
+        {{g.title}} {% for m in m %} {% if g.id == m.grid.id and i.id == m.student.id %}( Obtained marks = {{m.marks}} ){% endif %} {% endfor %}
+      </button>
+      {% if user.is_admin or user.user_type == "Teacher"%}
+      <form class="input-group" id="form4{{g.id}}">
+        <input type="number" class="form-control" id="grid{{g.id}}">
+        <button class="btngrid btn btn-outline-secondary" id="{{g.id}}">Update Marks</button>
+        </form>
+      {% endif %}  
+    </h2>
+    <div id="collapseOne{{g.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
+      data-bs-parent="#accordionExample">
+
+      <div class="accordion-body" style="padding: 0.5rem !important;">
+        {% for c in c %}
+        {% if g.id == c.title.id %}
+        <div class="accordion-item mb-2">
+          <h2 class="accordion-header" id="headingtwo">
+            <button id="btn8{{c.id}}" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapsetwo{{c.id}}" aria-expanded="true" aria-controls="collapsetwo">{{c.criteria}} {% for m in m %}{% if c.id == m.criteria.id and i.id == m.student.id %}( Obtained marks = {{m.marks}} ){% endif %}{%endfor%}</button>
+              {% if user.is_admin or user.user_type == "Teacher"%}
+              <form class="input-group" id="form8{{c.id}}">
+              <input type="number" class="form-control" id="criteria{{c.id}}">
+              <button class="btncriteria btn btn-outline-secondary" id="{{c.id}}">Update Marks</button>
+              </form>
+              {% endif %}
+          </h2>
+          <div id="collapsetwo{{c.id}}" class="accordion-collapse collapse" aria-labelledby="headingtwo"
+            data-bs-parent="#headingtwo">
+            {% for d in d %}
+            {% if c.id == d.criteria.id %}
+            <div class="accordion-body">
+              {{d.descp|safe}}
+              {% for cmt in cmt %}
+              {% if cmt.description.id == d.id and cmt.student.id == i.id %}
+              <div class="row mt-3" id="insertedrow{{cmt.id}}" style="margin-bottom:2%; word-wrap: break-word;">
+                
+                <div class="col-11">
+                  <h5 id="datacomment{{cmt.id}}">{{cmt.comment}}</h5>
+                </div>
+                <div class="col">
+                  {% if user.is_admin or user.user_type == "Teacher"%}
+                  <a href="#"  class="delete mt-2 text-reset text-decoration-none float-end" data-sid="{{cmt.id}}"
+                    title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                  <a href="#" class="edit mt-2 text-reset text-decoration-none float-end" title="Edit" data-sid="{{cmt.id}}" descp-sid="{{d.id}}" ><i class="material-icons">&#xE254;</i></a>  
+                   {% endif %} 
+                </div>
+              </div>
+              
+              {%endif%}
+              {% endfor %}
+              <div class=" newAgaincomment{{d.id}}" style="margin-bottom: 2%; word-wrap: break-word;" id={{d.id}}>
+                
+              </div>
+              {% if user.is_admin or user.user_type == "Teacher"%}
+              <form  id="form1{{d.id}}">
+                {% csrf_token %}
+                <input type="number" id="cmntid"   hidden>
+                <input type="number" id="student"   value="{{i.id}}" hidden>
+                <input type="number" id="teacher"   value="{{user.id}}" hidden>
+                <input type="number" id="description"  value="{{d.id}}" hidden>
+                <!-- <input type="text" id="comment{{d.id}}" placeholder="comment" style="width: 86.5%; "> -->
+                <div class="input-group">
+                <input type="text" class="form-control" id="comment{{d.id}}" >
+                <button class=" btnsave btn btn-outline-secondary" id="{{d.id}}" type="button">Add Comment</button>
+                </div>
+                <!-- <input id="{{d.id}}" class="btnsave" type="button" value="ADD"> -->
+              </form>
+              {% endif%}
+            </div>
+            {%endif%}
+            {% endfor %}
+          </div>
+        </div>
+        {%endif%}
+        {%endfor%}
+      </div>
+
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<script >
+$(".btngrid").click(function (e) {
+    e.preventDefault();
+    var id = $(this).attr("id");
+    var marks = $("#grid"+id).val();
+    var student = "{{i.id}}";
+    // console.log(id);
+    // console.log(marks);
+    // console.log(student);
+    // console.log(criteria);
+    $.ajax({
+      url:"{% url 'addmarks' %}",
+      method: "POST",
+      data : {id:id, mrk:marks, std:student, field:"gird",  csrfmiddlewaretoken: "{{csrf_token}}",},
+      success:function(data){
+        // console.log(data.status);
+        if(data.status == 0){
+          x = data.comet;
+          console.log(x);
+          console.log("Marks Added Sucessfully");
+          document.getElementById("btn1"+id).textContent = x[0].grid+ " ( Obtained marks = "+x[0].marks+" )";
+          $("#form4"+id)[0].reset();
+        }
+      },
+
+    });
+    
+
+});
+
+$(".btncriteria").click(function (e) {
+    e.preventDefault();
+    var id = $(this).attr("id");
+    var marks = $("#criteria"+id).val();
+    var student = "{{i.id}}";
+    // console.log(id);
+    // console.log(marks);
+    // console.log(student);
+    // console.log(criteria);
+    $.ajax({
+      url:"{% url 'addmarks' %}",
+      method: "POST",
+      data : {id:id, mrk:marks, std:student, field:"criteria", csrfmiddlewaretoken: "{{csrf_token}}",},
+      success:function(data){
+        // console.log(data.status);
+        if(data.status == 0){
+          x = data.comet;
+          console.log(x);
+          console.log("Marks Added Sucessfully");
+          document.getElementById("btn8"+id).textContent = x[0].criteria+ " ( Obtained marks = "+x[0].marks+" )";
+          $("#form8"+id)[0].reset();
+        }
+      },
+    });
+});
+
+
+$(".row").on('click','.edit',  (function (e) {
+    e.preventDefault();
+    let id = $(this).attr("data-sid");
+    let descpid = $(this).attr("descp-sid");
+    let txt = document.getElementById("datacomment"+id).textContent;
+    mythis = this;
+    console.log(id);
+    $(mythis).closest(".row").fadeOut();
+    console.log(txt);
+    $("#cmntid").val(id);
+    $("#comment"+descpid).val(txt);
+    txt = "";
+    
+
+   
+  }));
+
+  $(".row").on('click','.delete',  (function (e) {
+    e.preventDefault();
+    let id = $(this).attr("data-sid");
+    mythis = this;
+    console.log(id);
+    $.ajax({
+      url:"{% url 'cmtdel' %}",
+      method: "POST",
+      data : {id:id,csrfmiddlewaretoken: "{{csrf_token}}",},
+      success:function(data){
+        // console.log(data.status);
+        if(data.status == 0){
+          console.log("Data Sucessfully Deleted")
+          $(mythis).closest(".row").fadeOut();
+
+        }
+      },
+
+    });
+  }));
+
+
+
+  $(".btnsave").click(function () {
+    output = "";
+    var id = $(this).attr("id")
+    console.log(id)
+    let cmntid = $("#cmntid").val();
+    let student = $("#student").val();
+    let teacher = $("#teacher").val();
+    let comment = $("#comment"+id).val();
+    $.ajax({
+      url: "{% url 'addcmnt' %}",
+      method: 'POST',
+      data: {
+        cmntid : cmntid,
+        student: student,
+        teacher: teacher,
+        description: id,
+        comment: comment,
+        csrfmiddlewaretoken: "{{csrf_token}}",
+      }, success: function (data) {
+
+        console.log(data.comet);
+        x = data.comet;
+        y = data.status;
+        console.log(y);
+       
+        // for (i = 0; i < x.length; i++) {
+        //   output += "<div class='col-11'> <h5>" + x[i].comment + "</h5> </div> <div class='col-1'> <a href='#'' class='edit mt-2 text-reset text-decoration-none' title='Edit' data-bs-toggle='modal' data-bs-target='#editModal{{cmt.id}}'><i class='material-icons'>&#xE254;</i></a> <a href='#' class='delete mt-2 text-reset text-decoration-none' title='Delete' data-toggle='tooltip'><i class='material-icons'>&#xE872;</i></a> </div>";  
+        // }
+        if (y == "save"){
+          output += "<div class='row mt-3' id=insertedrow"+x[0].id+" > <div class='col-10'> <h5 id=datacomment"+x[0].id+">"+x[0].comment+"</h5> </div> <div class='col'> <a href='#' class='delete mt-2 text-reset text-decoration-none float-end' title='Delete' data-toggle='tooltip'  data-sid="+x[0].id+" ><i class='material-icons'>&#xE872;</i></a> <a href='#' class='edit mt-2 text-reset text-decoration-none float-end' data-sid="+x[0].id+" descp-sid="+x[0].descpid+" title='Edit'><i class='material-icons'>&#xE254;</i></a> </div></div>";
+          $(".newAgaincomment"+id).append(output);
+        // $('.newcomment').html(output);
+       
+        $("#form1"+id)[0].reset();
+        // document.getElementById("form"+id).reset();
+        
+      } else {
+        output += " <div class='col-10'> <h5 id=datacomment"+x[0].id+">"+x[0].comment+"</h5> </div> <div class='col'> <a href='#' class='delete mt-2 text-reset text-decoration-none float-end' title='Delete' data-toggle='tooltip'  data-sid="+x[0].id+" ><i class='material-icons'>&#xE872;</i></a> <a href='#' class='edit mt-2 text-reset text-decoration-none float-end' data-sid="+x[0].id+" descp-sid="+x[0].descpid+" title='Edit'><i class='material-icons'>&#xE254;</i></a> </div>";
+        $("#insertedrow"+x[0].id).html(output);
+        $("#insertedrow"+x[0].id).fadeIn();
+        $("#form1"+id)[0].reset();
+      };
+    }});
+  });
+
+  
+
+
+
+</script>
+{% endblock body %}

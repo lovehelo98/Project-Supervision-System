@@ -1,0 +1,328 @@
+{% extends 'base/nav1.html'%}
+{% block head %}
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  <style>
+    /* body {
+      color: #566787;
+      background: #f5f5f5;
+      font-family: 'Roboto', sans-serif;
+    } */
+    
+    .table-wrapper {
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    }
+    .table-title {
+      padding-bottom: 10px;
+      margin: 0 0 10px;
+    }
+    .table-title h2 {
+      margin: 8px 0 0;
+      font-size: 22px;
+    }
+    .search-box {
+      position: relative;
+      float: right;
+    }
+    .search-box input {
+      height: 34px;
+      border-radius: 20px;
+      padding-left: 35px;
+      border-color: #ddd;
+      box-shadow: none;
+    }
+    .search-box input:focus {
+      border-color: #3FBAE4;
+    }
+    .search-box i {
+      color: #a0a5b1;
+      position: absolute;
+      font-size: 19px;
+      top: 8px;
+      left: 10px;
+    }
+    table.table tr th,
+    table.table tr td {
+      border-color: #e9e9e9;
+    }
+    table.table-striped tbody tr:nth-of-type(odd) {
+      background-color: #fcfcfc;
+    }
+    table.table-striped.table-hover tbody tr:hover {
+      background: #f5f5f5;
+    }
+    table.table th i {
+      font-size: 13px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    {% if nbar == 'Student'%}
+    table.table td:last-child {
+      width: 140px;
+    }
+    {% else %}
+    table.table td:last-child {
+      width: 120px;
+    }
+    {% endif %}
+
+    table.table td a {
+      color: #a0a5b1;
+      display: inline-block;
+      margin: 0 5px;
+    }
+    table.table td a.view {
+      color: #03A9F4;
+    }
+    table.table td a.edit {
+      color: #FFC107;
+    }
+    table.table td a.delete {
+      color: #E34724;
+    }
+    table.table td i {
+      font-size: 19px;
+    }
+    .hint-text {
+      float: left;
+      margin-top: 6px;
+      font-size: 95%;
+    }
+    .modal-body, label{
+       margin-bottom: 2% !important;
+     
+
+    }
+    
+    
+
+
+
+  </style>
+ 
+{% endblock head %}
+{% block body %}
+  <div>
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm">
+              <h2>{% if nbar == 'Teacher' %}Supervisor{% else %}Student{% endif %} <b>Details</b></h2>
+            </div>
+            <div class="col-sm">
+              {% if nbar == 'Student' %}
+              <button class="btndownload btn btn-success float-end">Download</button>
+              {% endif %}
+              <div class="search-box" style="margin-right: 5px !important;">
+                <i class="material-icons">&#xE8B6;</i>
+                <input type="text" id="filter" class="form-control" placeholder="Search&hellip;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr>
+              {% if nbar == 'Student'  %}
+              <th></th>
+              <th>WLV_ID</th>
+              {% endif %}
+              <th>Name </th>
+              {% if nbar == 'Student'%}
+              <th>Project</th>
+              <th>Supervisor</th>
+              {% endif %}
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          {% for t in account %}
+          <tbody class="{{nbar}}">
+           
+            {%if nbar == 'Student' %}
+            <td><input type="checkbox" class="selected" value="{{t.id}}"></td>
+            <td>{{t.wlvid}}</td>
+            <td><a href="{% url 'stdmg' t.id %}" class="text-decoration-none" style="color: black;"><b>{{t.fullname}}</b></a></td>
+            {% else %}
+            <td><b>{{t.fullname}}</b></td>
+            {%endif%}
+            {% if nbar == 'Student' %}
+            <td>{{t.project}}</td>
+            <td>{{t.supervisor}}</td>
+            {% endif %}
+            <td>{{t.email}}</td>
+            <td>{{t.phone_number}}</td>
+            <td>
+              {% if nbar == 'Student' %}
+              <button   title="Report"  id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0px !important; border: 0px !important;" ><i class="material-icons">assessment</i></button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for g in g %}
+                <li><a class="dropdown-item" href="{% url 'report' t.id g.title%}">{{g.title}}</a></li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+              {% if user.is_admin or user.fullname == t.fullname %}
+              <a href="#" class="edit" title="Edit" data-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#editModal{{t.id}}"><i
+                  class="material-icons">&#xE254;</i></a>
+              <a href="#" class="reset" title="Reset" data-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#resetpwdModal{{t.id}}"><i
+                  class="material-icons">autorenew</i></a>
+              {% endif %}
+              {% if user.is_admin %}
+              <a href="#" class="delete" title="Delete" data-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#deleteModal{{t.id}}"><i
+                  class="material-icons">&#xE872;</i></a>
+              {% endif %}
+            </td>
+          </tbody>
+          <div class="modal fade" id="deleteModal{{t.id}}" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+              </div>
+              <div class="modal-body">
+                Are you sure want to delete user {{t.fullname}} ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{% url 'delete_user' t.id %}" class="btn btn-primary">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="modal fade" id="resetpwdModal{{t.id}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                </div>
+                <div class="modal-body">
+                  Are You Sure Want to Reset Password for {% if user.is_admin %}{{t.fullname}}{% else %} Yourself{% endif %} ?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <a href="{% url 'resetpwd' t.id %}" class="btn btn-primary">Reset</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" id="editModal{{t.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit details</h5>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="{%  url 'update_user' t.id %}">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" value='{{t.fullname}}' required name="name">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" class="form-control" placeholder="Email" value='{{t.email}}' required
+                          name="email">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label  class="col-sm-2 col-form-label">Phone</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" maxlength="10" pattern="\d{10}"
+                          title="Please enter exactly 10 digits" value='{{t.phone_number}}' name="phone_number" />
+                      </div>
+                    </div>
+                    {% if nbar == 'Student' %}
+                    <div class="form-group row">
+                      <label  class="col-sm-2 col-form-label">Supervisor</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="supervisor" id="id_supervisor" required>
+                          <option value='{{t.supervisor}}'>{{t.supervisor}}</option>
+
+                          {% for s in teachers%}
+                          {% if s.fullname != t.supervisor %}
+                          <option value="{{s.fullname}}">{{s.fullname}}</option>
+                          {% endif %}
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">WLV_ID</label>
+                      <div class="col-sm-10">
+                        <input type="number" class="form-control" placeholder="WLV ID" value='{{t.wlvid}}' required
+                          name="wlvid">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Project</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Project Name" value='{{t.project}}' required
+                          name="project">
+                      </div>
+                    </div>
+                    {% else %}
+                    <input type='text' name='supervisor' id='id_supervisor' value='' hidden>
+                    <input type='number' name='wlvid' id='id_wlvid' value='' hidden>
+                    <input type='text' name='project' id='id_project' value='' hidden>
+                    {%endif%}
+                    <div class="modal-footer">
+                      <button type="button" onclick="javascript:window.location.reload()" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button class="btn btn-success" type="submit">Save changes</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+          $('#filter').keyup(function () {
+            var rex = new RegExp($(this).val(), 'i');
+            $('.{{nbar}} tr ').hide();
+            $('.{{nbar}} tr ').filter(function () {
+              return rex.test($(this).text());
+            }).show();
+          })
+      });
+    </script>
+    <script>
+      $('.btndownload').click(function (){
+        var  txt="";
+        $('.selected:checked').each(function(){
+          
+          txt +=$(this).val()+","});
+        // console.log(txt);
+        $.ajax({
+            url : "{% url 'downloadpdf' %}",
+            method : "POST",
+            data : {id:txt, csrfmiddlewaretoken: "{{csrf_token}}",},
+          });
+        $('input:checkbox').prop('checked',false);  
+        });  
+        </script>
+{% endblock body %}

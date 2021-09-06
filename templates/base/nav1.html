@@ -1,0 +1,143 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap core CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      /* html{
+        font-size: 65.2%  !important;
+      }
+      body{
+        font: 2rem Helvetica !important;
+      } */
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{% static 'nav/nav.css'%}" rel="stylesheet">
+    {% block head %}
+    {% endblock head %}
+  </head>
+  <body>
+    
+<header class="navbar navbar-light sticky-top  flex-md-nowrap p-0 shadow" style="background-color: #74c043;">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-4" href="#" style="border-right:1px solid rgba(0, 0, 0, .1) ;"><h5 style="color:white;">Herald College</h5></a>
+  <h5 class="mx-auto" style="font-family:HELVETICA; color:white;">Project Supervision System</h5>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'home'%}">
+              <span data-feather="home"></span>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">
+              <span data-feather="user"></span>
+              {% if user.is_admin %}Admin {% else %}{{user.fullname}}{% endif %}
+            </a>
+          </li>
+          {% if user.user_type == 'Student' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'stdmg' user.id %}">
+              <span data-feather="layers"></span>
+              Feedbacks
+            </a>
+          </li>
+          {%endif %}
+          {% if user.is_admin %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'listuser' 'teacher' %}">
+              <span data-feather="users"></span>
+              Supervisors
+            </a>
+          </li>
+          {% endif %}
+          {% if user.user_type == 'Teacher' or user.is_admin %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'listuser' 'student'  %}">
+              <span data-feather="users"></span>
+              Students
+            </a>
+          </li>
+          {% endif %}
+          {% if user.is_admin %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register'%}">
+              <span data-feather="user-plus"></span>
+              Add User
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'fileupload'%}">
+              <span data-feather="file-plus"></span>
+              Bulk Entry
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'grid' %}">
+              <span data-feather="layers"></span>
+              Feedback
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <span data-feather="log-out"></span>
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10">
+      <div class=" pt-3">
+        {% block body %}
+        {% endblock body %}
+        
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- <script src="https://unpkg.com/feather-icons"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>
+     
+     
+  </body>
+</html>

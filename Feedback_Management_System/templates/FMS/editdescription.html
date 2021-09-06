@@ -1,0 +1,18 @@
+{% extends 'base/nav1.html' %}
+{% block body %}
+<div class="container"> 
+    <a class="nav-link text-reset text-decoration-none" href="{% url 'description' cid %}" style="font-size: x-large !important; padding: 0 !important ;">
+    <span data-feather="corner-down-left"></span>
+     Back to Descriptions  
+</a>  
+<div style="width: 49%; margin-top: 2%; ">
+Edit description
+<form method="POST"> 
+{% csrf_token %}               
+{{form.media}}
+{{form.descp}}
+ <input type="submit" class="btn btn-success float-end">
+</form>
+</div>
+</div>
+{% endblock body %}

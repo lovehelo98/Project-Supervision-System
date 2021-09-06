@@ -1,0 +1,83 @@
+{% extends 'base/nav1.html' %}
+{% block head %}
+
+{% endblock head%}
+{% block body %}
+<div class="container" >
+  <div class="row" style="border-bottom: 1px solid#74c043;">
+    <div class="col-sm-10">
+    <p class="h1 mb-2">Marking Grids</p>
+    </div>
+    <div class="col-sm-2 pt-2" style="padding-right: 0  !important;">
+            <button type="button" class="btn btn-outline-success float-end" data-bs-toggle="modal" data-bs-target="#addModal">Add Grid </button>
+    </div>
+  </div>
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Grid</h5>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'addgrid' %}">
+          {% csrf_token %}
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-3 col-form-label" ><h5> Grid Title</h5></label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" v required name="title" >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" onclick="javascript:window.location.reload()" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-success" type="submit">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  {% for g in grids %}
+<div class="row mt-3">
+<div class="col-10">
+    <a href="{% url 'criteria' g.id %}" class="text-reset text-decoration-none"><h5 class="float-left">{{g.title}}</h5></a>
+</div>
+<div class="col">
+  <a href="{% url 'deletegrid' g.id %}" class="delete mt-2 text-reset text-decoration-none float-end" title="Delete" data-toggle="tooltip"><i
+    class="material-icons">&#xE872;</i></a>
+    <a href="#" class="edit mt-2 text-reset text-decoration-none float-end" title="Edit" data-bs-toggle="modal" data-bs-target="#editModal{{g.id}}"><i
+        class="material-icons">&#xE254;</i></a>
+    
+</div>
+</div>
+<div class="modal fade" id="editModal{{g.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Edit details</h5>
+                </div>
+                <div class="modal-body">
+                  <form method="POST" action="{% url 'updategrid' g.id %}">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                      <label for="inputEmail3" class="col-sm-3 col-form-label"><h5>Grid Title</h5></label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" value='{{g.title}}' required name="title">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" onclick="javascript:window.location.reload()" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button class="btn btn-success" type="submit">Save changes</button>
+                    </div>
+                    
+                  </form>
+                </div> 
+              </div>
+            </div>
+          </div>
+{% endfor %}
+</div>
+{% endblock body %}
+
+

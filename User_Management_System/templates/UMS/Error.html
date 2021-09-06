@@ -1,0 +1,6 @@
+{% extends 'UMS/base.html'%}
+{% block base %}
+<h3>Error</h3>
+<p>{{message}}</p>
+<a class="btn btn-primary ml-2" href="{% url 'logout' %}">Log in</a>
+{% endblock base %}

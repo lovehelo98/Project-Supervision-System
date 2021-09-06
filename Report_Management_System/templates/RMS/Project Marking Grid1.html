@@ -1,0 +1,95 @@
+<p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><span style='font-family:"Cambria",serif;color:#365F91;font-weight:bold;'><u><span style="font-size:19px;">Component 2</span></u></span><span style='font-family:"Cambria",serif;color:#365F91;font-weight:bold;'><span style="font-size:19px;">: Project (including Artefact) and Project Management Marking and Feedback Sheet.</span></span><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong><strong><span style='font-size:12px;font-family:"Calibri",sans-serif;'>(Weight: 75%)&nbsp;</span></strong><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
+<p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><em><u><span style='font-size:12px;font-family:"Calibri",sans-serif;'>Note</span></u></em><em><span style='font-size:12px;font-family:"Calibri",sans-serif;'>.&nbsp;</span></em><span style='font-size:12px;font-family:"Calibri",sans-serif;'>Marks are a matter of academic judgement based on the&nbsp;</span><a href="https://www.wlv.ac.uk/media/departments/office-of-the-vice-chancellor/documents/University-Performance-Descriptors.pdf"><strong><span style='font-size:12px;font-family:"Calibri",sans-serif;'>University Performance Descriptors</span></strong></a><strong><span style='font-size:12px;font-family:"Calibri",sans-serif;'>.</span></strong></p>
+<p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'>&nbsp;</p>
+<table style="width:99%;border-collapse:collapse;border:none;">
+    <tbody>
+        <tr>
+            <td style="width: 15.9%;border: 1pt solid windowtext;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 27.3pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;'>Student No: {{a.wlvid}}</span></strong></p>
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
+            </td>
+            <td style="width: 35.3%;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 27.3pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>Student Name: {{a.fullname}}</span></strong></p>
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
+            </td>
+            <td style="width: 19%;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 27.3pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>Supervisor:&nbsp;{{a.supervisor}}</span></strong></p>
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-size:19px;font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
+            </td>
+            <td rowspan="2" style="width: 32.68%;border-top: 1pt solid windowtext;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-image: initial;border-left: none;background: rgb(217, 217, 217);padding: 0in 5.4pt;height: 27.3pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;text-align:right;'><strong><span style='font-size:19px;font-family:"Calibri",sans-serif;color:black;'>Overall Project Mark <u>as a Percentage</u></span></strong><strong><span style="font-size:19px;color:black;">.</span></strong><span style='font-size:13px;font-family:"Arial",sans-serif;color:black;'>&nbsp;</span></p>
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;text-align:right;'><em><span style='font-size:13px;font-family:"Arial",sans-serif;color:red;'>(<u>Copied</u> from bottom of the marking sheet.</span></em></p>
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;text-align:right;'><em><span style='font-size:13px;font-family:"Arial",sans-serif;color:red;'>40% required to pass the module)</span></em></p>
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;text-align:right;'><strong><span style='font-size:24px;font-family:"Calibri",sans-serif;color:black;background:yellow;'>{% for m in mgrid %}{{m.marks}}{% endfor%}%</span></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 15.9%;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 30.6pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>Date: {% now "jS F Y " %}</span></strong></p>
+            </td>
+            <td style="width: 35.3%;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 30.6pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>Project Title: {{a.project}}</span></strong></p>
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;'>&nbsp;</span></strong></p>
+            </td>
+            <td style="width: 16.12%;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;background: rgb(242, 242, 242);padding: 0in 5.4pt;height: 30.6pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Nimbus Roman No9 L",serif;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>Reader: {{user.fullname}}</span></strong></p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p style='margin:0in;font-size:16px;font-family:"Times New Roman",serif;'><strong><span style="font-size:8px;">&nbsp;</span></strong></p>
+<table style="width: 99%;background:#D9D9D9;border-collapse:collapse;border:none;">
+    <tbody>
+        <tr>
+            <td style="width: 16.9%;border-width: 1pt 1pt 2.25pt;border-style: solid;border-color: windowtext;border-image: initial;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Times New Roman",serif;'><strong><span style='font-family:"Calibri",sans-serif;'>Sections</span></strong></p>
+            </td>
+            <td style="width: 6.04%;border-top: 1pt solid windowtext;border-left: none;border-bottom: 2.25pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>Marks</span></strong></p>
+            </td>
+            <td colspan="2" style="width: 44.36%;border-top: 1pt solid windowtext;border-left: none;border-bottom: 2.25pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;"><strong><span style='font-size:16px;font-family:"Calibri",sans-serif;color:black;'><br>&nbsp;</span></strong>&nbsp;<p style='margin:0in;font-size:16px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>Criteria</span></strong></p>
+            </td>
+            <td style="width: 32.68%;border-top: 1pt solid windowtext;border-left: none;border-bottom: 2.25pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;">
+                <p style='margin:0in;font-size:16px;font-family:"Times New Roman",serif;text-align:center;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>Feedback</span></strong></p>
+            </td>
+        </tr>
+        {% for d in d %} 
+        {% if forloop.last %}
+        <tr>
+            <td style="padding: 0in 5.4pt;vertical-align: top;border-top: 2px solid windowtext; background-color: white !important;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:13px;line-height:115%;">&nbsp;</span></p>
+            </td>
+            
+            <td style="padding: 0in 5.4pt;vertical-align: top;border-top: 2px solid windowtext; background-color: white !important;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:13px;line-height:115%;">&nbsp;</span></p>
+            </td>
+            <td style="padding: 0in 5.4pt;vertical-align: top;border-top: 2px solid windowtext; background-color: white !important;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:13px;line-height:115%;">&nbsp;</span></p>
+            </td>
+            <td style="padding: 0in 5.4pt;vertical-align: top;border-top: 2px solid windowtext; background-color: white !important;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:13px;line-height:115%;">&nbsp;</span></p>
+            </td>
+            <td style="padding: 0in 5.4pt;vertical-align: top;border-top: 2px solid windowtext; background-color: white !important;">
+                <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:13px;line-height:115%;">&nbsp;</span></p>
+            </td>
+            
+        </tr>
+        {% endif %}
+        <tr>
+            
+            <td style="width: 16.9%;border-left: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;{% ifchanged d.criteria.id %}border-top: 2.25pt solid windowtext;{%endifchanged %}{% if forloop.last%}border-bottom: 2.25pt solid windowtext; margin-top:5px;{% endif %}">
+                <p style='margin:0in;font-size:16px;font-family:"Times New Roman",serif;'><strong><span style='font-family:"Calibri",sans-serif;color:black;'>{% ifchanged d.criteria.id %}{{d.criteria.criteria}}{%endifchanged %}</span></strong></p>{% if forloop.last %}{{d.descp|safe}}{% endif %}
+            </td>
+            <td style="width: 6.04%;{% ifchanged d.criteria.id %}border-top: 2.25pt solid windowtext;{%endifchanged %}border-left: none;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;{% if forloop.last%}border-bottom: 2.25pt solid windowtext; background-color:white !important;border-right: 1pt solid white;{% endif %}">
+                <p style='margin:0in;font-size:16px;font-family:"Times New Roman",serif;'><em><span style='font-size:16px;font-family:"Calibri",sans-serif;color:black;'>{% if forloop.first %}N/A{% else %}{% for m in mcrt %}{% if m.criteria.id == d.criteria.id %}{{m.marks}}{% endif %}{% endfor %}{% endif %}</span></em></p>
+            </td>
+            <td colspan="2" style="width: 44.36%;border-top: none;border-left: none;border-bottom: 2.25pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;vertical-align: top;{% if forloop.last%}background-color:white !important; border-right: 1px solid white; border-top: 2.25pt solid windowtext;{% endif %}">
+                <p style='margin:0in;'><em><span style='font-family:"Calibri",sans-serif;color:black;'>{% if not forloop.last %}{{d.descp|safe}}{% endif %}{% if forloop.last %} {% for cmt in cmt %}{% if d.id == cmt.description.id %}{{cmt.comment}}{% endif %}{% endfor %}{% endif %}</span></em></p>
+            </td>
+            <td style="width: 32.68%;border-top: none;border-left: none;border-bottom: 2.25pt solid windowtext;border-right: 1pt solid windowtext;background: white;padding: 0in 5.4pt;vertical-align: top;{% if forloop.last%}border-top: 2.25pt solid windowtext;{% endif %}">
+               {% if not forloop.last %} {% for cmt in cmt %}{% if d.id == cmt.description.id %}<ul><li>{{cmt.comment}}</li></ul>{% endif %}{% endfor %}{% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
