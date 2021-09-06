@@ -78,6 +78,6 @@ def downloadpdf(request):
 			zip_files.append((a.fullname+".zip",full_zip))
 			files = []
 		full_zip_in_memory = generate_zip(zip_files)
-		response = HttpResponse(full_zip_in_memory, content_type='application/zip')
+		response = HttpResponse(full_zip_in_memory, content_type='application/force-download')
 		response['Content-Disposition'] = 'attachment; filename="{}"'.format('Report.zip')
 		return response
